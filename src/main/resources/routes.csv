@@ -1,0 +1,10 @@
+km;slope;routtype;special fee
+10;5;Highway;5
+20;-200;Highway;0
+5;-300;CountryRoad;0
+100;200;Highway;4,99
+1;4,8;GravelRoad;0
+6,5;60;CountryRoad;10
+8;30;GravelRoad;0
+9;100;Highway;9,99
+45;96,8;CountryRoad;0
