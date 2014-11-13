@@ -11,4 +11,8 @@ public class TripCalculator {
     {
         int i = 2;
     }
+
+    public static void main(String[] args) {
+        TripCalculator tripCalc = new TripCalculator();
+    }
 }
