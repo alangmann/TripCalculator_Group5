@@ -4,6 +4,6 @@
 public class TripCalculator {
 
     // TODO: implement me :)
-    //Lutjuc11 test
+    //Lutjuc11 stinkt
     //korjuc11 war hier
 }
