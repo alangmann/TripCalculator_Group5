@@ -11,9 +11,18 @@ public class TripCalculator {
     public void readRoutesCSV() throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir")+"\\trunk\\src\\main\\resources\\routes.csv"));
         String line = "";
+        int count = 0;
         while ((line = br.readLine()) != null) {
             String[] parts = line.split(";");
+            if(count>0)
+            {
+                int km = Integer.parseInt(parts[0]);
+                int slope = Integer.parseInt(parts[1]);
+                String routeType = parts[2];
+                int specialFee = Integer.parseInt(parts[3]);
+            }
             System.out.println(line);
+            count++;
         }
     }
 
