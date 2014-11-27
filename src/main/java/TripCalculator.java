@@ -20,6 +20,8 @@ public class TripCalculator {
                 int slope = Integer.parseInt(parts[1]);
                 String routeType = parts[2];
                 int specialFee = Integer.parseInt(parts[3]);
+
+                Routes route = new Routes(km,slope,routeType,specialFee);
             }
             System.out.println(line);
             count++;
