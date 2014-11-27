@@ -10,6 +10,7 @@ public class TripCalculator {
 
     private LinkedList<Routes> routeList = new LinkedList<Routes>();
 
+
     public void readRoutesCSV() throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir")+"\\trunk\\src\\main\\resources\\routes.csv"));
         String line = "";
@@ -21,7 +22,7 @@ public class TripCalculator {
                 int km = Integer.parseInt(parts[0]);
                 int slope = Integer.parseInt(parts[1]);
                 String routeType = parts[2];
-                int specialFee = Integer.parseInt(parts[3]);
+                double specialFee = Double.parseDouble(parts[3]);
 
                 routeList.add(new Routes(km,slope,routeType,specialFee));
 

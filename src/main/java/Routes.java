@@ -4,14 +4,14 @@
 public class Routes {
     private int km;
     private int slope;
-    private String routtype;
-    private int specialfee;
+    private String routeType;
+    private double specialFee;
 
-    public Routes(int km, int slope, String routtype, int specialfee) {
+    public Routes(int km, int slope, String routeType, double specialFee) {
         this.km = km;
         this.slope = slope;
-        this.routtype = routtype;
-        this.specialfee = specialfee;
+        this.routeType = routeType;
+        this.specialFee = specialFee;
     }
 
     public int getKm() {
@@ -22,16 +22,15 @@ public class Routes {
         this.km = km;
     }
 
-    public String getRouttype() {
-        return routtype;
+    public String getRouteType() {
+        return routeType;
     }
 
-    public void setRouttype(String routtype) {
-        this.routtype = routtype;
+    public void setRouteType(String routeType) {
+        this.routeType = routeType;
     }
 
     public int getSlope() {
-
         return slope;
     }
 
@@ -39,12 +38,14 @@ public class Routes {
         this.slope = slope;
     }
 
-    public int getSpecialfee() {
-        return specialfee;
+    public double getSpecialFee() {
+        return specialFee;
     }
 
-    public void setSpecialfee(int specialfee) {
-        this.specialfee = specialfee;
+    public void setSpecialFee(double specialFee) {
+        this.specialFee = specialFee;
     }
+
+
 
 }
