@@ -1,12 +1,14 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.LinkedList;
 
 /**
  * Created by Juergen on 27.11.2014.
  */
 public class TripCalculator {
 
+    private LinkedList<Routes> routeList = new LinkedList<Routes>();
 
     public void readRoutesCSV() throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir")+"\\trunk\\src\\main\\resources\\routes.csv"));
@@ -21,7 +23,8 @@ public class TripCalculator {
                 String routeType = parts[2];
                 int specialFee = Integer.parseInt(parts[3]);
 
-                Routes route = new Routes(km,slope,routeType,specialFee);
+                routeList.add(new Routes(km,slope,routeType,specialFee));
+
             }
             System.out.println(line);
             count++;
