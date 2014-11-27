@@ -1,7 +1,8 @@
 package java;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
-public class TripCalculatorTest extends TestCase {
+public class TripCalculatorTest {
+
 
 }
