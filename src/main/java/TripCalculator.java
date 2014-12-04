@@ -72,6 +72,18 @@ public class TripCalculator {
         return co2;
     }
 
+    public double calculateCO2onDistanceWithWeight()
+    {   double co2 = 0;
+        Car car = new Car(5.0,FuelType.Diesel,100);
+
+        for(Route route : routeList)
+        {
+            co2+=route.getKm() * (0.1325+(car.getCargo()%100)*0.5);
+        }
+        return co2;
+
+    }
+
     public static void main(String[] args) {
         TripCalculator tc = new TripCalculator();
         try {
@@ -79,8 +91,10 @@ public class TripCalculator {
             System.out.println("CO2 on distance: " + tc.calculateCO2onDistance());
             System.out.println("CO2 on distance and slope: " + tc.calculateCO2onDistanceAndSlope());
             System.out.println("CO2 on route: " + tc.calculateCO2onRoute());
-        } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("CO2 on new distance: "+tc.calculateCO2onDistanceWithWeight());
+        } catch(Exception ex)
+        {
+
         }
     }
 
