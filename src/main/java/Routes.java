@@ -46,6 +46,4 @@ public class Routes {
         this.specialFee = specialFee;
     }
 
-
-
 }

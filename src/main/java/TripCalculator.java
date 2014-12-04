@@ -41,6 +41,16 @@ public class TripCalculator {
         return co2value;
     }
 
+    public double calculateCO2onDistanceAndSlope()
+    {
+        double co2= calculateCO2onDistance();
+        for(Routes route : routeList)
+        {
+            co2*= 1+ (route.getSlope()/10000);
+        }
+        return co2;
+    }
+
     public static void main(String[] args) {
         TripCalculator tc = new TripCalculator();
         try {
