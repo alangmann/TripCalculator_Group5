@@ -18,7 +18,7 @@ public class TripCalculator {
         while ((line = br.readLine()) != null) {
             String[] parts = line.split(";");
             if (count > 0) {
-                int km = Integer.parseInt(parts[0]);
+                double km = Double.parseDouble(parts[0].replace(',', '.'));
                 double slope = Double.parseDouble(parts[1].replace(',', '.'));
                 String routeType = parts[2];
                 double specialFee = Double.parseDouble(parts[3].replace(',', '.'));

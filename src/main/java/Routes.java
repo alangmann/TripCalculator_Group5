@@ -2,23 +2,23 @@
  * Created by Juergen on 27.11.2014.
  */
 public class Routes {
-    private int km;
+    private double km;
     private double slope;
     private String routeType;
     private double specialFee;
 
-    public Routes(int km, double slope, String routeType, double specialFee) {
+    public Routes(double km, double slope, String routeType, double specialFee) {
         this.km = km;
         this.slope = slope;
         this.routeType = routeType;
         this.specialFee = specialFee;
     }
 
-    public int getKm() {
+    public double getKm() {
         return km;
     }
 
-    public void setKm(int km) {
+    public void setKm(double km) {
         this.km = km;
     }
 
