@@ -3,11 +3,11 @@
  */
 public class Routes {
     private int km;
-    private int slope;
+    private double slope;
     private String routeType;
     private double specialFee;
 
-    public Routes(int km, int slope, String routeType, double specialFee) {
+    public Routes(int km, double slope, String routeType, double specialFee) {
         this.km = km;
         this.slope = slope;
         this.routeType = routeType;
@@ -30,11 +30,11 @@ public class Routes {
         this.routeType = routeType;
     }
 
-    public int getSlope() {
+    public double getSlope() {
         return slope;
     }
 
-    public void setSlope(int slope) {
+    public void setSlope(double slope) {
         this.slope = slope;
     }
 
