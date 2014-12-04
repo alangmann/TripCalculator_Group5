@@ -30,4 +30,10 @@ public class TripCalculatorTest {
         assertThat(tc.calculateCO2onDistanceAndSlope(), equalTo(27.3670906));
     }
 
+    @Test
+    public void calculateCO2onRoute()
+    {
+        assertThat(tc.calculateCO2onRoute(), equalTo(30.0686861));
+    }
+
 }

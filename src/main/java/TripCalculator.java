@@ -42,32 +42,26 @@ public class TripCalculator {
 
     // User Story 3
     public double calculateCO2onDistanceAndSlope() {
-        double co2 =0;
+        double co2 = 0;
         for (Routes route : routeList) {
-            co2 += route.getKm() * 0.1325 * ( 1 + (route.getSlope() / 10000));
+            co2 += route.getKm() * 0.1325 * (1 + (route.getSlope() / 10000));
         }
         return co2;
     }
 
     // User Story 4
-    public double calculateCO2onRoute()
-    {   double co2=0;
-        for(Routes route : routeList)
-        {   double factor = 0;
-            if(route.getRouteType().equals("Highway"))
-            {
+    public double calculateCO2onRoute() {
+        double co2 = 0;
+        for (Routes route : routeList) {
+            double factor = 0;
+            if (route.getRouteType().equals("Highway")) {
                 factor = 1;
-            }
-            else if(route.getRouteType().equals("CountryRoad"))
-            {
+            } else if (route.getRouteType().equals("CountryRoad")) {
                 factor = 1.2;
-            }
-
-            else if(route.getRouteType().equals("GravelRoad"))
-            {
+            } else if (route.getRouteType().equals("GravelRoad")) {
                 factor = 2;
             }
-            co2+=calculateCO2onDistance()*factor;
+            co2 += route.getKm() * 0.1325 * (1 + (route.getSlope() / 10000)) * factor;
         }
         return co2;
     }
@@ -78,7 +72,7 @@ public class TripCalculator {
             tc.readRoutesCSV();
             System.out.println("CO2 on distance: " + tc.calculateCO2onDistance());
             System.out.println("CO2 on distance and slope: " + tc.calculateCO2onDistanceAndSlope());
-            System.out.println("CO2 on route: "+tc.calculateCO2onRoute());
+            System.out.println("CO2 on route: " + tc.calculateCO2onRoute());
         } catch (IOException e) {
             e.printStackTrace();
         }
