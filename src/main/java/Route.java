@@ -1,13 +1,13 @@
 /**
  * Created by Juergen on 27.11.2014.
  */
-public class Routes {
+public class Route {
     private double km;
     private double slope;
     private String routeType;
     private double specialFee;
 
-    public Routes(double km, double slope, String routeType, double specialFee) {
+    public Route(double km, double slope, String routeType, double specialFee) {
         this.km = km;
         this.slope = slope;
         this.routeType = routeType;
