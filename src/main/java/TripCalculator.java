@@ -8,7 +8,7 @@ import java.util.LinkedList;
  */
 public class TripCalculator {
 
-    private LinkedList<Route> routeList = new LinkedList<Route>();
+    private LinkedList<Routes> routeList = new LinkedList<Routes>();
 
 
     public void readRoutesCSV() throws IOException {
@@ -22,7 +22,7 @@ public class TripCalculator {
                 double slope = Double.parseDouble(parts[1].replace(',', '.'));
                 String routeType = parts[2];
                 double specialFee = Double.parseDouble(parts[3].replace(',', '.'));
-                routeList.add(new Route(km, slope, routeType, specialFee));
+                routeList.add(new Routes(km, slope, routeType, specialFee));
             }
             System.out.println(line);
             count++;
@@ -33,7 +33,7 @@ public class TripCalculator {
     // User Story 2
     public double calculateCO2onDistance() {
         double co2value = 0;
-        for (Route route : routeList) {
+        for (Routes route : routeList) {
             //0.1325 = CO2 Wert für 5l/km
             co2value += route.getKm() * 0.1325;
         }
@@ -43,7 +43,7 @@ public class TripCalculator {
     // User Story 3
     public double calculateCO2onDistanceAndSlope() {
         double co2 = 0;
-        for (Route route : routeList) {
+        for (Routes route : routeList) {
             co2 += route.getKm() * 0.1325 * (1 + (route.getSlope() / 10000));
         }
         return co2;
@@ -52,7 +52,7 @@ public class TripCalculator {
     // User Story 4
     public double calculateCO2onRoute() {
         double co2 = 0;
-        for (Route route : routeList) {
+        for (Routes route : routeList) {
             double factor = 0;
             if (route.getRouteType().equals("Highway")) {
                 factor = 1;
