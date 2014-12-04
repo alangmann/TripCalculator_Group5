@@ -29,6 +29,8 @@ public class TripCalculator {
         }
     }
 
+
+    // User Story 2
     public double calculateCO2onDistance() {
         double co2value = 0;
         for (Routes route : routeList) {
@@ -38,6 +40,7 @@ public class TripCalculator {
         return co2value;
     }
 
+    // User Story 3
     public double calculateCO2onDistanceAndSlope() {
         double co2 =0;
         for (Routes route : routeList) {
