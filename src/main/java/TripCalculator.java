@@ -33,17 +33,39 @@ public class TripCalculator {
         double co2value = 0;
         for (Routes route : routeList) {
             //0.1325 = CO2 Wert für 5l/km
-            co2value += route.getKm() + 0.1325;
+            co2value += route.getKm() * 0.1325;
         }
         return co2value;
     }
 
     public double calculateCO2onDistanceAndSlope() {
-        double co2 = calculateCO2onDistance();
+        double co2 =0;
         for (Routes route : routeList) {
-            co2 *= 1 + (route.getSlope() / 10000);
+            co2 += calculateCO2onDistance()* ( 1 + (route.getSlope() / 10000));
         }
         System.out.println(co2+"");
+        return co2;
+    }
+
+    public double calculateCO2onRoute()
+    {   double co2=0;
+        for(Routes route : routeList)
+        {   double factor = 0;
+            if(route.getRouteType().equals("Highway"))
+            {
+                factor = 1;
+            }
+            else if(route.getRouteType().equals("CountryRoad"))
+            {
+                factor = 1.2;
+            }
+
+            else if(route.getRouteType().equals("GravelRoad"))
+            {
+                factor = 2;
+            }
+            co2+=calculateCO2onDistance()*factor;
+        }
         return co2;
     }
 
