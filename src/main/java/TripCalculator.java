@@ -46,7 +46,6 @@ public class TripCalculator {
         for (Routes route : routeList) {
             co2 += calculateCO2onDistance()* ( 1 + (route.getSlope() / 10000));
         }
-        System.out.println(co2+"");
         return co2;
     }
 
@@ -78,6 +77,7 @@ public class TripCalculator {
             tc.readRoutesCSV();
             System.out.println("CO2 on distance: " + tc.calculateCO2onDistance());
             System.out.println("CO2 on distance and slope: " + tc.calculateCO2onDistanceAndSlope());
+            System.out.println("CO2 on route: "+tc.calculateCO2onRoute());
         } catch (IOException e) {
             e.printStackTrace();
         }
