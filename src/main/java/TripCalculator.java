@@ -43,6 +43,7 @@ public class TripCalculator {
         for (Routes route : routeList) {
             co2 *= 1 + (route.getSlope() / 10000);
         }
+        System.out.println(co2+"");
         return co2;
     }
 
