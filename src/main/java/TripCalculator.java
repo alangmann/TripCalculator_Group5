@@ -35,7 +35,7 @@ public class TripCalculator {
         double co2value = 0;
         for(Routes route : routeList)
         {
-            //0.1325 = CO2 Wert für 5l/100km
+            //0.1325 = CO2 Wert für 5l/km
             co2value += route.getKm() + 0.1325;
         }
         return co2value;
