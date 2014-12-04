@@ -27,5 +27,6 @@ public class Truck extends Vehicle {
 
     public void setAdBlue(boolean adBlue) {
         this.adBlue = adBlue;
+        //hjklhjhkl
     }
 }
