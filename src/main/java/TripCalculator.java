@@ -20,9 +20,22 @@ public class TripCalculator {
             if (count > 0) {
                 double km = Double.parseDouble(parts[0].replace(',', '.'));
                 double slope = Double.parseDouble(parts[1].replace(',', '.'));
+                RouteType rt;
                 String routeType = parts[2];
+                if(routeType.equals("Highway"))
+                {
+                    rt = RouteType.Highway;
+                }
+                else if(routeType.equals("GravelRoad"))
+                {
+                    rt = RouteType.GravelRoad;
+                }
+                else
+                {
+                    rt = RouteType.CountryRoad;
+                }
                 double specialFee = Double.parseDouble(parts[3].replace(',', '.'));
-                routeList.add(new Route(km, slope, routeType, specialFee));
+                routeList.add(new Route(km, slope, rt, specialFee));
             }
             System.out.println(line);
             count++;
@@ -53,15 +66,8 @@ public class TripCalculator {
     public double calculateCO2onRoute() {
         double co2 = 0;
         for (Route route : routeList) {
-            double factor = 0;
-            if (route.getRouteType().equals("Highway")) {
-                factor = 1;
-            } else if (route.getRouteType().equals("CountryRoad")) {
-                factor = 1.2;
-            } else if (route.getRouteType().equals("GravelRoad")) {
-                factor = 2;
-            }
-            co2 += route.getKm() * 0.1325 * (1 + (route.getSlope() / 10000)) * factor;
+
+            co2 += route.getKm() * 0.1325 * (1 + (route.getSlope() / 10000)) * route.getRouteType().getFactor();
         }
         return co2;
     }

@@ -4,10 +4,10 @@
 public class Route {
     private double km;
     private double slope;
-    private String routeType;
+    private RouteType routeType;
     private double specialFee;
 
-    public Route(double km, double slope, String routeType, double specialFee) {
+    public Route(double km, double slope, RouteType routeType, double specialFee) {
         this.km = km;
         this.slope = slope;
         this.routeType = routeType;
@@ -22,11 +22,11 @@ public class Route {
         this.km = km;
     }
 
-    public String getRouteType() {
+    public RouteType getRouteType() {
         return routeType;
     }
 
-    public void setRouteType(String routeType) {
+    public void setRouteType(RouteType routeType) {
         this.routeType = routeType;
     }
 
