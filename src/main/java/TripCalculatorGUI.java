@@ -1,15 +1,9 @@
-import javax.swing.*;
-
 /**
  * Created by Juergen on 11.12.2014.
  */
 public class TripCalculatorGUI {
-    private JTextField txtCO2distance;
-    private JLabel lblTitle;
-    private JLabel lblCO2distance;
 
     public static void main(String[] args) {
-
         TripCalculator tc = new TripCalculator();
         try {
             tc.readRoutesCSV();
