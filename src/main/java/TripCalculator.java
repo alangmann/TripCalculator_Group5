@@ -91,9 +91,9 @@ public class TripCalculator {
         for(Route route : routeList)
         {
             if(route.getSlope()>=0) {
-                System.out.println(route.getKm()+"x"+(car.getAverageConsumption() * 0.0265) +"+"+ ((0.005 * car.getCargo())*0.0265)+"x"+(1 + (route.getSlope() / 10000))+"x"+route.getRouteType().getFactor());
+               // System.out.println(route.getKm()+"x"+((car.getAverageConsumption() * 0.0265) + ((0.005 * car.getCargo())*0.0265))+"x"+(1 + (route.getSlope() / 10000))+"x"+route.getRouteType().getFactor());
                 co2 += route.getKm() * ((car.getAverageConsumption() * 0.0265) + (0.005 * car.getCargo()*0.0265)) * (1 + (route.getSlope() / 10000)) * route.getRouteType().getFactor();
-                System.out.println(co2);
+                //   System.out.println(co2);
             }
             else
             {
