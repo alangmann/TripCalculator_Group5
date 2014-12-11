@@ -29,7 +29,7 @@ public class TripCalculator {
                 {
                     case "Highway": rt = RouteType.Highway;break;
                     case "GravelRoad": rt = RouteType.GravelRoad;break;
-                    case "CountryRoad": rt = RouteType.CountryRoad;break;
+                    default: rt = RouteType.CountryRoad;break;
                 }
                 double specialFee = Double.parseDouble(parts[3].replace(',', '.'));
                 routeList.add(new Route(km, slope, rt, specialFee));
