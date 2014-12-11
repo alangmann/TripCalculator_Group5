@@ -84,13 +84,21 @@ public class TripCalculator {
      * 0,0236kg/km at 1l/100km (Patrol)
      *
      **/
-    public double calculateCO2onDistanceWithWeight()
+    public double calculateCO2onVehicle()
     {   double co2 = 0;
         Car car = new Car(5.0,FuelType.Diesel,100);
 
         for(Route route : routeList)
         {
-            co2+=route.getKm() * (0.1325+(car.getCargo()%100)*0.5);
+            if(route.getSlope()>=0) {
+                System.out.println(route.getKm()+"x"+(car.getAverageConsumption() * 0.0265) +"+"+ ((0.005 * car.getCargo())*0.0265)+"x"+(1 + (route.getSlope() / 10000))+"x"+route.getRouteType().getFactor());
+                co2 += route.getKm() * ((car.getAverageConsumption() * 0.0265) + (0.005 * car.getCargo()*0.0265)) * (1 + (route.getSlope() / 10000)) * route.getRouteType().getFactor();
+                System.out.println(co2);
+            }
+            else
+            {
+                co2+=0;
+            }
         }
         return co2;
 

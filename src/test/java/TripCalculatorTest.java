@@ -26,14 +26,15 @@ public class TripCalculatorTest {
 
 
     @Test
-    public void calculateCO2onDistanceAndSlope() {
-        assertThat(tc.calculateCO2onDistanceAndSlope(), equalTo(27.3670906));
+    public void calculateCO2onDistanceAndSlope() { assertThat(tc.calculateCO2onDistanceAndSlope(), equalTo(24.1274656));
     }
 
     @Test
     public void calculateCO2onRoute()
     {
-        assertThat(tc.calculateCO2onRoute(), equalTo(30.0686861));
+        assertThat(tc.calculateCO2onRoute(), equalTo(26.7005361));
     }
 
+    @Test
+    public void calculateCO2onVehicle() { assertThat(tc.calculateCO2onVehicle(),equalTo(127.4572761));}
 }
