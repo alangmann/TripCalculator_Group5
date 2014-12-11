@@ -24,17 +24,12 @@ public class TripCalculator {
                 double slope = Double.parseDouble(parts[1].replace(',', '.'));
                 RouteType rt;
                 String routeType = parts[2];
-                if(routeType.equals("Highway"))
+
+                switch(routeType)
                 {
-                    rt = RouteType.Highway;
-                }
-                else if(routeType.equals("GravelRoad"))
-                {
-                    rt = RouteType.GravelRoad;
-                }
-                else
-                {
-                    rt = RouteType.CountryRoad;
+                    case "Highway": rt = RouteType.Highway;break;
+                    case "GravelRoad": rt = RouteType.GravelRoad;break;
+                    case "CountryRoad": rt = RouteType.CountryRoad;break;
                 }
                 double specialFee = Double.parseDouble(parts[3].replace(',', '.'));
                 routeList.add(new Route(km, slope, rt, specialFee));
