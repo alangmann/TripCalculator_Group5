@@ -6,6 +6,8 @@ import java.util.LinkedList;
 /**
  * Created by Juergen on 27.11.2014.
  */
+
+
 public class TripCalculator {
 
     private LinkedList<Route> routeList = new LinkedList<Route>();
@@ -57,7 +59,13 @@ public class TripCalculator {
     public double calculateCO2onDistanceAndSlope() {
         double co2 = 0;
         for (Route route : routeList) {
-            co2 += route.getKm() * 0.1325 * (1 + (route.getSlope() / 10000));
+            if(route.getSlope()>=0) {
+                co2 += route.getKm() * 0.1325 * (1 + (route.getSlope() / 10000));
+            }
+            else
+            {
+                co2+=0;
+            }
         }
         return co2;
     }
@@ -66,12 +74,21 @@ public class TripCalculator {
     public double calculateCO2onRoute() {
         double co2 = 0;
         for (Route route : routeList) {
-
-            co2 += route.getKm() * 0.1325 * (1 + (route.getSlope() / 10000)) * route.getRouteType().getFactor();
+            if(route.getSlope()>=0) {
+                co2 += route.getKm() * 0.1325 * (1 + (route.getSlope() / 10000)) * route.getRouteType().getFactor();
+            }
+            else
+            {
+                co2+=0;
+            }
         }
         return co2;
     }
-
+    /**
+     * 0,0265kg/km at 1l/100km (Diesel)
+     * 0,0236kg/km at 1l/100km (Patrol)
+     *
+     **/
     public double calculateCO2onDistanceWithWeight()
     {   double co2 = 0;
         Car car = new Car(5.0,FuelType.Diesel,100);
@@ -83,6 +100,9 @@ public class TripCalculator {
         return co2;
 
     }
+
+
+
 
     public static void main(String[] args) {
         TripCalculator tc = new TripCalculator();
