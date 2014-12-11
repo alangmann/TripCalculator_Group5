@@ -1,18 +1,29 @@
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Created by Juergen on 11.12.2014
  */
 public class TripCalculatorGUI extends JFrame {
 
-
+    public void initComponents()
+    {
+        Container con = this.getContentPane();
+        con.setLayout(new BorderLayout());
+        lblTitle = new JLabel("Tripcalculator Luttenberger u. Korosec");
+        lblTitle.setHorizontalAlignment(JLabel.CENTER);
+        con.add(lblTitle, BorderLayout.NORTH);
+    }
 
     public static void main(String[] args) {
         TripCalculatorGUI tgui = new TripCalculatorGUI();
+        tgui.initComponents();
         tgui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        tgui.setSize(500,500);
+        tgui.setSize(500, 500);
         tgui.setVisible(true);
         tgui.setLocationRelativeTo(null);
+
+
         TripCalculator tc = new TripCalculator();
         try {
             tc.readRoutesCSV();
@@ -24,4 +35,6 @@ public class TripCalculatorGUI extends JFrame {
 
         }
     }
+
+    private JLabel lblTitle;
 }
