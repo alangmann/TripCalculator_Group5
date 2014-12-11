@@ -30,7 +30,7 @@ public class TripCalculatorGUI extends JFrame {
             System.out.println("CO2 on distance: " + tc.calculateCO2onDistance());
             System.out.println("CO2 on distance and slope: " + tc.calculateCO2onDistanceAndSlope());
             System.out.println("CO2 on route: " + tc.calculateCO2onRoute());
-            System.out.println("CO2 on new distance: " + tc.calculateCO2onVehicle());
+            System.out.println("CO2 on new distance: " + tc.calculateCO2onCar());
         } catch (Exception ex) {
 
         }

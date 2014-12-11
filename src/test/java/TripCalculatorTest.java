@@ -36,5 +36,8 @@ public class TripCalculatorTest {
     }
 
     @Test
-    public void calculateCO2onVehicle() { assertThat(tc.calculateCO2onVehicle(),equalTo(29.37058971));}
+    public void calculateCO2onCar() { assertThat(tc.calculateCO2onCar(),equalTo(29.37058971));}
+
+    @Test
+    public void calculateCO2onTruck() {assertThat(tc.calculateCO2onTruck(),equalTo(25.07981355873));}
 }
