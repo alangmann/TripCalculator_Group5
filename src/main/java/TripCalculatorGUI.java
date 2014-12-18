@@ -74,4 +74,8 @@ public class TripCalculatorGUI extends JFrame {
     private JLabel lblCO2fullCalculation;
     private JTextField txtCO2fullCalculation;
 
+    private JLabel lblSpecifications;
+    private JRadioButton rbCar;
+    private JRadioButton rbTruck;
+    private ButtonGroup bgVehicle;
 }
