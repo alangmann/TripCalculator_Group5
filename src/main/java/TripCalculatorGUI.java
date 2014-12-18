@@ -17,7 +17,6 @@ public class TripCalculatorGUI extends JFrame {
         lblTitle.setHorizontalAlignment(JLabel.CENTER);
 
 
-
         lblCO2onDistance = new JLabel("CO2 consumption based on distance:");
         txtCO2onDistance = new JTextField();
         txtCO2onDistance.setEditable(false);
@@ -55,8 +54,9 @@ public class TripCalculatorGUI extends JFrame {
         lblCargo = new JLabel("Cargo in kg");
         txtCargo = new JTextField();
 
-        pnTruck = new JPanel(new GridLayout(1,3));
+        pnTruck = new JPanel(new GridLayout(1, 3));
         lblAxles = new JLabel("Nr Axles");
+        lblAxles.setEnabled(false);
         txtAxles = new JTextField();
         txtAxles.setEditable(false);
         cbAdBlue = new JCheckBox("AdBlue");
@@ -72,11 +72,11 @@ public class TripCalculatorGUI extends JFrame {
         rbTruck.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(rbTruck.isSelected())
-                {
+                if (rbTruck.isSelected()) {
                     txtAxles.setEditable(true);
                     cbAdBlue.setEnabled(true);
-
+                    lblAxles.setEnabled(true);
+                    txtCO2fullCalculation.setText("" + TripCalculator.getInstance().calculateCO2onCar());
                 }
             }
         });
@@ -84,10 +84,11 @@ public class TripCalculatorGUI extends JFrame {
         rbCar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(rbCar.isSelected())
-                {
+                if (rbCar.isSelected()) {
                     txtAxles.setEditable(false);
                     cbAdBlue.setEnabled(false);
+                    lblAxles.setEnabled(false);
+                    txtCO2fullCalculation.setText("" + TripCalculator.getInstance().calculateCO2onTruck());
                 }
             }
         });
@@ -95,9 +96,29 @@ public class TripCalculatorGUI extends JFrame {
         rbDiesel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(rbDiesel.isSelected())
-                {
+                if (rbDiesel.isSelected()) {
+                    if (rbTruck.isSelected()) {
+                        txtCO2fullCalculation.setText("" + TripCalculator.getInstance().calculateCO2onCar());
+                    }
+                    else
+                    {
+                        txtCO2fullCalculation.setText("" + TripCalculator.getInstance().calculateCO2onTruck());
+                    }
+                }
+            }
+        });
 
+        rbPatrol.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (rbPatrol.isSelected()) {
+                    if (rbTruck.isSelected()) {
+                        txtCO2fullCalculation.setText("" + TripCalculator.getInstance().calculateCO2onCar());
+                    }
+                    else
+                    {
+                        txtCO2fullCalculation.setText("" + TripCalculator.getInstance().calculateCO2onTruck());
+                    }
                 }
             }
         });
@@ -106,15 +127,27 @@ public class TripCalculatorGUI extends JFrame {
         lblDayOfWeek = new JLabel("DayOfWeek: ");
         String[] daysOfWeek = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
         cbDayOfWeek = new JComboBox(daysOfWeek);
-        switch (sdf.format(new Date()))
-        {
-            case "Mo": cbDayOfWeek.setSelectedIndex(0);break;
-            case "Di": cbDayOfWeek.setSelectedIndex(1);break;
-            case "Mi": cbDayOfWeek.setSelectedIndex(2);break;
-            case "Do": cbDayOfWeek.setSelectedIndex(3);break;
-            case "Fr": cbDayOfWeek.setSelectedIndex(4);break;
-            case "Sa": cbDayOfWeek.setSelectedIndex(5);break;
-            default: cbDayOfWeek.setSelectedIndex(6);
+        switch (sdf.format(new Date())) {
+            case "Mo":
+                cbDayOfWeek.setSelectedIndex(0);
+                break;
+            case "Di":
+                cbDayOfWeek.setSelectedIndex(1);
+                break;
+            case "Mi":
+                cbDayOfWeek.setSelectedIndex(2);
+                break;
+            case "Do":
+                cbDayOfWeek.setSelectedIndex(3);
+                break;
+            case "Fr":
+                cbDayOfWeek.setSelectedIndex(4);
+                break;
+            case "Sa":
+                cbDayOfWeek.setSelectedIndex(5);
+                break;
+            default:
+                cbDayOfWeek.setSelectedIndex(6);
         }
 
         lblCostAverageConsumption = new JLabel("Cost Average Consumption");
@@ -173,10 +206,7 @@ public class TripCalculatorGUI extends JFrame {
             tgui.txtCO2onDistance.setText("" + tc.calculateCO2onDistance());
             tgui.txtCO2withSlope.setText("" + tc.calculateCO2onDistanceAndSlope());
             tgui.txtCO2withRoutetype.setText("" + tc.calculateCO2onRoute());
-            System.out.println("CO2 on new distance: " + tc.calculateCO2onCar());
-            System.out.println("CO2 on car: "+tc.calculateCO2onCar());
-            System.out.println("CO2 on truck: "+tc.calculateCO2onTruck());
-            System.out.println("End of writing");
+            tgui.txtCO2fullCalculation.setText("" + TripCalculator.getInstance().calculateCO2onCar());
         } catch (Exception ex) {
 
         }
