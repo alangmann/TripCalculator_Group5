@@ -11,7 +11,7 @@ public class TripCalculatorTest {
 
     @Before
     public void setUp() {
-        tc = new TripCalculator();
+        tc = TripCalculator.getInstance();
         try {
             tc.readRoutesCSV();
         } catch (IOException e) {
