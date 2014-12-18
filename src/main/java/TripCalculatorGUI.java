@@ -175,6 +175,7 @@ public class TripCalculatorGUI extends JFrame {
             tgui.txtCO2withRoutetype.setText("" + tc.calculateCO2onRoute());
             System.out.println("CO2 on new distance: " + tc.calculateCO2onCar());
             System.out.println("CO2 on car: "+tc.calculateCO2onCar());
+            System.out.println("CO2 on truck: "+tc.calculateCO2onTruck());
             System.out.println("End of writing");
         } catch (Exception ex) {
 
