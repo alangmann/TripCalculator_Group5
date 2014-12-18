@@ -12,6 +12,17 @@ public class TripCalculator {
 
     private LinkedList<Route> routeList = new LinkedList<Route>();
 
+    private static TripCalculator theInstance;
+    private TripCalculator(){}
+    public static TripCalculator getInstance()
+    {
+        if(theInstance==null)
+        {
+            theInstance = new TripCalculator();
+
+        }
+        return theInstance;
+    }
 
     public void readRoutesCSV() throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\trunk\\src\\main\\resources\\routes.csv"));
