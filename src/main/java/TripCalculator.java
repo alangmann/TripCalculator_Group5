@@ -162,6 +162,13 @@ public class TripCalculator {
         return co2;
     }
 
+    public double calculateTotalCostOfRoute(Vehicle vehicle, String weekDay)
+    {
+        double cost = 0;
+
+        return cost;
+    }
+
     /*
     public double calculateCostOfRouteSegment(Vehicle vehicle) throws IOException {
         double co2 = 0;
