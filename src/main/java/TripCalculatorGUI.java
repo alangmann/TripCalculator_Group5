@@ -268,7 +268,7 @@ public class TripCalculatorGUI extends JFrame {
                 } catch (Exception ex) {
                     nrAxles = 2;
                 }
-                Truck truck = new Truck(5.0, FuelType.Diesel, cargo, nrAxles, cbAdBlue.isSelected());
+                Truck truck = new Truck(averageConsumption, FuelType.Diesel, cargo, nrAxles, cbAdBlue.isSelected());
                 txtCO2fullCalculation.setText("" + TripCalculator.getInstance().calculateCo2Consumption(truck));
             }
         }
