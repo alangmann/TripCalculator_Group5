@@ -162,10 +162,24 @@ public class TripCalculator {
         return co2;
     }
 
-    public double calculateTotalCostOfRoute(Vehicle vehicle, String weekDay)
-    {
+    public double calculateTotalCostOfRoute(Vehicle vehicle, String weekDay) throws IOException {
         double cost = 0;
+        String fuel = readFuelsCSV(weekDay);
+        for(Route route : routeList)
+        {
 
+            if(vehicle instanceof Truck)
+            {
+                Truck truck = (Truck) vehicle;
+
+                cost+= route.getKm() * (vehicle.getAverageConsumption()+vehicle.getCargo()/100*0.05) * (truck.getTypeOfFuel() ==FuelType.Diesel ? Double.parseDouble(fuel.split(";")[0]) : Double.parseDouble(fuel.split(";")[0])) + 5 * Math.pow(1.5,((Truck) vehicle).getAxles());
+            }
+            else
+            {
+                Car car = (Car)vehicle;
+                cost+= route.getKm() * (vehicle.getAverageConsumption()+vehicle.getCargo()/100*0.5) * (car.getTypeOfFuel() ==FuelType.Diesel ? Double.parseDouble(fuel.split(";")[0]) : Double.parseDouble(fuel.split(";")[0])) + 5;
+            }
+        }
         return cost;
     }
 
@@ -175,7 +189,7 @@ public class TripCalculator {
         String dayOfWeek = "Monday";
         //Vehicle vehicle = new Truck(35.0,FuelType.Diesel,20000,4,false);
         for (Route route : routeList) {
-            if (vehicle instanceof Truck) {
+            if (vehicle instanceof Truck) {w
                 if (vehicle.getTypeOfFuel() == FuelType.Diesel) {
                     double diesel = FuelType.Diesel.getLiterPer100km();
                     co2 += route.getKm() * (vehicle.getAverageConsumption() + vehicle.getCargo() / 100 * 0.05) * diesel + route.getSpecialFee() * 5.0625 * (((Truck) vehicle).isAdBlue() ? 0.93 : 1);
