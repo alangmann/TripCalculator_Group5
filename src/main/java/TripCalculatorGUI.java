@@ -238,7 +238,9 @@ public class TripCalculatorGUI extends JFrame {
             }
             txtCO2fullCalculation.setText("" + TripCalculator.getInstance().calculateCo2Consumption(car));
             try {
-                txtCostAverageConsumption.setText("" + TripCalculator.getInstance().calculateTotalCostOfRoute(car, cbDayOfWeek.getSelectedItem().toString()));
+                txtCostAverageConsumption.setText("" + TripCalculator.getInstance().calculateTotalCostOfRoute(car, cbDayOfWeek.getSelectedItem().toString(), false, false));
+                txtShowSpecialFees.setText("" + TripCalculator.getInstance().calculateTotalCostOfRoute(car, cbDayOfWeek.getSelectedItem().toString(), true, false));
+                txtShowAxles.setText("");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -265,7 +267,9 @@ public class TripCalculatorGUI extends JFrame {
                 Truck truck = new Truck(averageConsumption, FuelType.Patrol, cargo, nrAxles, cbAdBlue.isSelected());
                 txtCO2fullCalculation.setText("" + TripCalculator.getInstance().calculateCo2Consumption(truck));
                 try {
-                    txtCostAverageConsumption.setText(""+TripCalculator.getInstance().calculateTotalCostOfRoute(truck, cbDayOfWeek.getSelectedItem().toString()));
+                    txtCostAverageConsumption.setText("" + TripCalculator.getInstance().calculateTotalCostOfRoute(truck, cbDayOfWeek.getSelectedItem().toString(), false, false));
+                    txtShowSpecialFees.setText("" + TripCalculator.getInstance().calculateTotalCostOfRoute(truck, cbDayOfWeek.getSelectedItem().toString(), true, false));
+                    txtShowAxles.setText("" + TripCalculator.getInstance().calculateTotalCostOfRoute(truck, cbDayOfWeek.getSelectedItem().toString(), true, true));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -285,7 +289,9 @@ public class TripCalculatorGUI extends JFrame {
                 Truck truck = new Truck(averageConsumption, FuelType.Diesel, cargo, nrAxles, cbAdBlue.isSelected());
                 txtCO2fullCalculation.setText("" + TripCalculator.getInstance().calculateCo2Consumption(truck));
                 try {
-                    txtCostAverageConsumption.setText(""+TripCalculator.getInstance().calculateTotalCostOfRoute(truck, cbDayOfWeek.getSelectedItem().toString()));
+                    txtCostAverageConsumption.setText("" + TripCalculator.getInstance().calculateTotalCostOfRoute(truck, cbDayOfWeek.getSelectedItem().toString(), false, false));
+                    txtShowSpecialFees.setText("" + TripCalculator.getInstance().calculateTotalCostOfRoute(truck, cbDayOfWeek.getSelectedItem().toString(), true, false));
+                    txtShowAxles.setText("" + TripCalculator.getInstance().calculateTotalCostOfRoute(truck, cbDayOfWeek.getSelectedItem().toString(), true, true));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -308,7 +314,9 @@ public class TripCalculatorGUI extends JFrame {
             tgui.txtCO2withSlope.setText("" + tc.calculateCO2onDistanceAndSlope());
             tgui.txtCO2withRoutetype.setText("" + tc.calculateCO2onRoute());
             tgui.txtCO2fullCalculation.setText("" + tc.calculateCo2Consumption(new Car(5.0, FuelType.Diesel, 100)));
-            tgui.txtCostAverageConsumption.setText("" + tc.calculateTotalCostOfRoute(new Car(5.0, FuelType.Diesel, 100), tgui.cbDayOfWeek.getSelectedItem().toString()));
+            tgui.txtCostAverageConsumption.setText("" + tc.calculateTotalCostOfRoute(new Car(5.0, FuelType.Diesel, 100), tgui.cbDayOfWeek.getSelectedItem().toString(), false, false));
+            tgui.txtShowSpecialFees.setText("" + TripCalculator.getInstance().calculateTotalCostOfRoute(new Car(5.0, FuelType.Diesel, 100), tgui.cbDayOfWeek.getSelectedItem().toString(), true, false));
+            tgui.txtShowAxles.setText("");
         } catch (Exception ex) {
 
         }

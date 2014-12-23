@@ -162,7 +162,7 @@ public class TripCalculator {
         return co2;
     }
 
-    public double calculateTotalCostOfRoute(Vehicle vehicle, String weekDay) throws IOException {
+    public double calculateTotalCostOfRoute(Vehicle vehicle, String weekDay, boolean specialFee, boolean axles) throws IOException {
         double cost = 0;
         String fuel = readFuelsCSV(weekDay);
         for(Route route : routeList)
@@ -172,46 +172,16 @@ public class TripCalculator {
             {
                 Truck truck = (Truck) vehicle;
 
-                cost+= route.getKm() * (vehicle.getAverageConsumption()+vehicle.getCargo()/100*0.05) * (truck.getTypeOfFuel() ==FuelType.Diesel ? Double.parseDouble(fuel.split(";")[0]) : Double.parseDouble(fuel.split(";")[0])) + route.getSpecialFee() * Math.pow(1.5,((Truck) vehicle).getAxles());
+                cost+= route.getKm() * (vehicle.getAverageConsumption()+vehicle.getCargo()/100*0.05) * (truck.getTypeOfFuel() ==FuelType.Diesel ? Double.parseDouble(fuel.split(";")[0]) : Double.parseDouble(fuel.split(";")[0])) + (specialFee ? route.getSpecialFee() : 0) * (axles ? Math.pow(1.5,((Truck) vehicle).getAxles()) : 1);
             }
             else
             {
                 Car car = (Car)vehicle;
-                cost+= route.getKm() * (vehicle.getAverageConsumption()+vehicle.getCargo()/100*0.5) * (car.getTypeOfFuel() ==FuelType.Diesel ? Double.parseDouble(fuel.split(";")[0]) : Double.parseDouble(fuel.split(";")[0])) + route.getSpecialFee();
+                cost+= route.getKm() * (vehicle.getAverageConsumption()+vehicle.getCargo()/100*0.5) * (car.getTypeOfFuel() ==FuelType.Diesel ? Double.parseDouble(fuel.split(";")[0]) : Double.parseDouble(fuel.split(";")[0])) + (specialFee ? route.getSpecialFee() : 0);
             }
         }
         return cost;
     }
 
-    /*
-    public double calculateCostOfRouteSegment(Vehicle vehicle) throws IOException {
-        double co2 = 0;
-        String dayOfWeek = "Monday";
-        //Vehicle vehicle = new Truck(35.0,FuelType.Diesel,20000,4,false);
-        for (Route route : routeList) {
-            if (vehicle instanceof Truck) {w
-                if (vehicle.getTypeOfFuel() == FuelType.Diesel) {
-                    double diesel = FuelType.Diesel.getLiterPer100km();
-                    co2 += route.getKm() * (vehicle.getAverageConsumption() + vehicle.getCargo() / 100 * 0.05) * diesel + route.getSpecialFee() * 5.0625 * (((Truck) vehicle).isAdBlue() ? 0.93 : 1);
-                } else {
-                    double patrol = FuelType.Patrol.getLiterPer100km();
-                    co2 += route.getKm() * (vehicle.getAverageConsumption() + vehicle.getCargo() / 100 * 0.05) * patrol + route.getSpecialFee() * 5.0625 * (((Truck) vehicle).isAdBlue() ? 0.93 : 1);
-                }
 
-            } else if (vehicle instanceof Car) {
-                if (vehicle.getTypeOfFuel() == FuelType.Diesel) {
-                    double diesel = FuelType.Diesel.getLiterPer100km();
-                    co2 += route.getKm() * (vehicle.getAverageConsumption() + vehicle.getCargo() / 100 * 0.5) * diesel + route.getSpecialFee() * 5.0625;
-                } else {
-                    double patrol = FuelType.Patrol.getLiterPer100km();
-                    co2 += route.getKm() * (vehicle.getAverageConsumption() + vehicle.getCargo() / 100 * 0.5) * patrol + route.getSpecialFee() * 5.0625;
-
-                }
-            }
-        }
-
-
-        return co2;
-    }
-    */
 }
