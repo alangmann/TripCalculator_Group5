@@ -18,32 +18,20 @@ public class Route {
         return km;
     }
 
-    public void setKm(double km) {
-        this.km = km;
-    }
 
     public RouteType getRouteType() {
         return routeType;
-    }
-
-    public void setRouteType(RouteType routeType) {
-        this.routeType = routeType;
     }
 
     public double getSlope() {
         return slope;
     }
 
-    public void setSlope(double slope) {
-        this.slope = slope;
-    }
 
     public double getSpecialFee() {
         return specialFee;
     }
 
-    public void setSpecialFee(double specialFee) {
-        this.specialFee = specialFee;
-    }
+      }
 
 }

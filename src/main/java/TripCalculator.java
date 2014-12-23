@@ -172,12 +172,12 @@ public class TripCalculator {
             {
                 Truck truck = (Truck) vehicle;
 
-                cost+= route.getKm() * (vehicle.getAverageConsumption()+vehicle.getCargo()/100*0.05) * (truck.getTypeOfFuel() ==FuelType.Diesel ? Double.parseDouble(fuel.split(";")[0]) : Double.parseDouble(fuel.split(";")[0])) + 5 * Math.pow(1.5,((Truck) vehicle).getAxles());
+                cost+= route.getKm() * (vehicle.getAverageConsumption()+vehicle.getCargo()/100*0.05) * (truck.getTypeOfFuel() ==FuelType.Diesel ? Double.parseDouble(fuel.split(";")[0]) : Double.parseDouble(fuel.split(";")[0])) + route.getSpecialFee() * Math.pow(1.5,((Truck) vehicle).getAxles());
             }
             else
             {
                 Car car = (Car)vehicle;
-                cost+= route.getKm() * (vehicle.getAverageConsumption()+vehicle.getCargo()/100*0.5) * (car.getTypeOfFuel() ==FuelType.Diesel ? Double.parseDouble(fuel.split(";")[0]) : Double.parseDouble(fuel.split(";")[0])) + 5;
+                cost+= route.getKm() * (vehicle.getAverageConsumption()+vehicle.getCargo()/100*0.5) * (car.getTypeOfFuel() ==FuelType.Diesel ? Double.parseDouble(fuel.split(";")[0]) : Double.parseDouble(fuel.split(";")[0])) + route.getSpecialFee();
             }
         }
         return cost;
