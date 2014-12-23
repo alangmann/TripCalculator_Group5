@@ -15,24 +15,11 @@ public class Vehicle {
     public double getAverageConsumption() {
         return averageConsumption;
     }
-
-    public void setAverageConsumption(double averageConsumption) {
-        this.averageConsumption = averageConsumption;
-    }
-
     public FuelType getTypeOfFuel() {
         return typeOfFuel;
     }
-
-    public void setTypeOfFuel(FuelType typeOfFuel) {
-        this.typeOfFuel = typeOfFuel;
-    }
-
     public int getCargo() {
         return cargo;
     }
 
-    public void setCargo(int cargo) {
-        this.cargo = cargo;
-    }
 }

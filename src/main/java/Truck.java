@@ -16,16 +16,7 @@ public class Truck extends Vehicle {
     public int getAxles() {
         return axles;
     }
-
-    public void setAxles(int axles) {
-        this.axles = axles;
-    }
-
     public boolean isAdBlue() {
         return adBlue;
-    }
-
-    public void setAdBlue(boolean adBlue) {
-        this.adBlue = adBlue;
     }
 }
