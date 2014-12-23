@@ -123,9 +123,8 @@ public class TripCalculator {
         for(Route route : routeList)
         {
             if(route.getSlope()>=0) {
-               // System.out.println(route.getKm()+"x"+((car.getAverageConsumption() * 0.0265) + ((0.005 * car.getCargo())*0.0265))+"x"+(1 + (route.getSlope() / 10000))+"x"+route.getRouteType().getFactor());
+
                 co2 += route.getKm() * ((car.getAverageConsumption() * 0.0265) + (0.005 * car.getCargo()*0.0265)) * (1 + (route.getSlope() / 10000)) * route.getRouteType().getFactor();
-                //   System.out.println(co2);
             }
             else
             {
@@ -146,9 +145,7 @@ public class TripCalculator {
         for(Route route : routeList)
         {
             if(route.getSlope()>=0) {
-                // System.out.println(route.getKm()+"x"+((car.getAverageConsumption() * 0.0265) + ((0.005 * car.getCargo())*0.0265))+"x"+(1 + (route.getSlope() / 10000))+"x"+route.getRouteType().getFactor());
                 co2 += (route.getKm() * ((truck.getAverageConsumption() * 0.0265) + (0.0005 * truck.getCargo()*0.0265)) * (1 + (route.getSlope() / 10000)) * route.getRouteType().getFactor())*93/100;
-                //   System.out.println(co2);
             }
             else
             {
@@ -169,7 +166,7 @@ public class TripCalculator {
             if(vehicle instanceof Truck)
             {
                 if(vehicle.getTypeOfFuel() == FuelType.Diesel)
-                {//duat weitamochn
+                {
                     double diesel = Double.parseDouble(this.readFuelsCSV(dayOfWeek).split(";")[0]);
                     co2+= route.getKm() * (vehicle.getAverageConsumption()+ vehicle.getCargo()/100 * 0.05) * diesel + route.getSpecialFee() * 5.0625;
                 }
