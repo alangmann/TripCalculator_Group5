@@ -35,6 +35,7 @@ public class TripCalculatorTest {
         assertThat(tc.calculateCO2onRoute(), equalTo(26.7005361));
     }
 
+    /*
     @Test
     public void calculateCO2onCar() {
         assertThat(tc.calculateCO2onCar(), equalTo(29.37058971));
@@ -44,4 +45,5 @@ public class TripCalculatorTest {
     public void calculateCO2onTruck() {
         assertThat(tc.calculateCO2onTruck(new Truck(5.0, FuelType.Diesel, 100, 4, true)), equalTo(25.07981355873));
     }
+    */
 }

@@ -117,6 +117,7 @@ public class TripCalculator {
      * 0,0265kg/km at 1l/100km (Diesel)
      * 0,0236kg/km at 1l/100km (Patrol)
      */
+    /*
     public double calculateCO2onCar() {
         double co2 = 0;
         Car car = new Car(5.0, FuelType.Diesel, 100);
@@ -148,6 +149,7 @@ public class TripCalculator {
         }
         return co2;
     }
+    */
 
     public double calculateCo2Consumption(Vehicle vehicle) {
         double co2 = 0;
