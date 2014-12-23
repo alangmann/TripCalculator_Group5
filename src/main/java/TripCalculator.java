@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
@@ -19,7 +20,6 @@ public class TripCalculator {
         if(theInstance==null)
         {
             theInstance = new TripCalculator();
-
         }
         return theInstance;
     }
@@ -48,6 +48,27 @@ public class TripCalculator {
             System.out.println(line);
             count++;
         }
+    }
+
+    public String readFuelsCSV(String dayOfWeek) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\trunk\\src\\main\\resources\\sprit_db.csv"));
+        String both="";
+        String line ="";
+        int count = 0;
+        while ((line = br.readLine()) != null) {
+            String[] parts = line.split(";");
+            if (count > 0) {
+                String dayOfWeekMethod = parts[0];
+                if(dayOfWeekMethod.equalsIgnoreCase(dayOfWeek)) {
+                    double diesel = Double.parseDouble(parts[1].replace(',', '.'));
+                    double patrol = Double.parseDouble(parts[2].replace(',', '.'));
+                    both=diesel+";"+patrol;
+                }
+            }
+            System.out.println(line);
+            count++;
+        }
+        return both;
     }
 
 
@@ -138,5 +159,47 @@ public class TripCalculator {
         return co2;
     }
 
+    public double calculateCostOfRouteSegment() throws IOException {
+        double co2=0;
+        String dayOfWeek="Monday";
+        Vehicle vehicle = new Truck(35.0,FuelType.Diesel,20000,4,false);
+        for(Route route : routeList)
+        {
+
+            if(vehicle instanceof Truck)
+            {
+                if(vehicle.getTypeOfFuel() == FuelType.Diesel)
+                {//duat weitamochn
+                    double diesel = Double.parseDouble(this.readFuelsCSV(dayOfWeek).split(";")[0]);
+                    co2+= route.getKm() * (vehicle.getAverageConsumption()+ vehicle.getCargo()/100 * 0.05) * diesel + route.getSpecialFee() * 5.0625;
+                }
+                else
+                {
+                    double patrol = Double.parseDouble(this.readFuelsCSV(dayOfWeek).split(";")[0]);
+                    co2+= route.getKm() * (vehicle.getAverageConsumption()+ vehicle.getCargo()/100 * 0.05) * patrol + route.getSpecialFee() * 5.0625;
+
+                }
+
+            }
+
+            else if(vehicle instanceof Car)
+            {
+                if(vehicle.getTypeOfFuel() == FuelType.Diesel)
+                {
+                    double diesel = Double.parseDouble(this.readFuelsCSV(dayOfWeek).split(";")[0]);
+                    co2+= route.getKm() * (vehicle.getAverageConsumption()+ vehicle.getCargo()/100 * 0.5) * diesel + route.getSpecialFee() * 5.0625;
+                }
+
+                else
+                {
+                    double patrol = Double.parseDouble(this.readFuelsCSV(dayOfWeek).split(";")[0]);
+                    co2+= route.getKm() * (vehicle.getAverageConsumption()+ vehicle.getCargo()/100 * 0.5) * patrol + route.getSpecialFee() * 5.0625;
+
+                }
+            }
+        }
+
+        return co2;
+    }
 
 }
