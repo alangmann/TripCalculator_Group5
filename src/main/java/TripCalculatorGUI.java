@@ -240,7 +240,7 @@ public class TripCalculatorGUI extends JFrame {
                 averageConsumption = 35.0;
             }
             if (rbPatrol.isSelected()) {
-                int nrAxles = 2;
+                int nrAxles = 4;
                 int cargo = 0;
                 try {
                     cargo = Integer.parseInt(txtCargo.getText());
@@ -250,13 +250,13 @@ public class TripCalculatorGUI extends JFrame {
                 try {
                     nrAxles = Integer.parseInt(txtAxles.getText());
                 } catch (Exception ex) {
-                    nrAxles = 2;
+                    nrAxles = 4;
                 }
                 Truck truck = new Truck(averageConsumption, FuelType.Patrol, cargo, nrAxles, cbAdBlue.isSelected());
                 txtCO2fullCalculation.setText("" + TripCalculator.getInstance().calculateCo2Consumption(truck));
 
             } else {
-                int nrAxles = 2;
+                int nrAxles = 4;
                 int cargo = 0;
                 try {
                     cargo = Integer.parseInt(txtCargo.getText());
@@ -266,7 +266,7 @@ public class TripCalculatorGUI extends JFrame {
                 try {
                     nrAxles = Integer.parseInt(txtAxles.getText());
                 } catch (Exception ex) {
-                    nrAxles = 2;
+                    nrAxles = 4;
                 }
                 Truck truck = new Truck(averageConsumption, FuelType.Diesel, cargo, nrAxles, cbAdBlue.isSelected());
                 txtCO2fullCalculation.setText("" + TripCalculator.getInstance().calculateCo2Consumption(truck));
