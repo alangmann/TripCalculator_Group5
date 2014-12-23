@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +13,8 @@ import java.util.Date;
  * Created by Juergen on 11.12.2014
  */
 public class TripCalculatorGUI extends JFrame {
+
+    private static TripCalculatorGUI tgui;
 
     public void initComponents() {
         Container con = this.getContentPane();
@@ -54,7 +58,7 @@ public class TripCalculatorGUI extends JFrame {
         pnFuelType.add(rbPatrol);
 
         lblCargo = new JLabel("Cargo in kg");
-        txtCargo = new JTextField();
+        txtCargo = new JTextField("100");
 
         pnTruck = new JPanel(new GridLayout(1, 3));
         lblAxles = new JLabel("Nr Axles");
@@ -74,113 +78,54 @@ public class TripCalculatorGUI extends JFrame {
         rbTruck.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (rbTruck.isSelected()) {
-                    txtAxles.setEditable(true);
-                    cbAdBlue.setEnabled(true);
-                    lblAxles.setEnabled(true);
-                    txtCO2fullCalculation.setText("" + TripCalculator.getInstance().calculateCO2onCar());
-                }
+                tgui.calculateOnInput();
+                txtAxles.setEnabled(true);
+                txtAxles.setEditable(true);
+                lblAxles.setEnabled(true);
+                cbAdBlue.setEnabled(true);
             }
         });
 
         rbCar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (rbCar.isSelected()) {
-                    txtAxles.setEditable(false);
-                    cbAdBlue.setEnabled(false);
-                    lblAxles.setEnabled(false);
-                    int nrAxles = 2;
-                    int cargo = 0;
-                    try {
-                        nrAxles = Integer.parseInt(txtAxles.getText());
-                        cargo = Integer.parseInt(txtCargo.getText());
-                    } catch (Exception ex) {
-                        nrAxles = 2;
-                        cargo = 0;
-                    }
-                    Truck truck = new Truck(5.0, FuelType.Diesel, cargo, nrAxles, cbAdBlue.isSelected());
-                    txtCO2fullCalculation.setText("" + TripCalculator.getInstance().calculateCO2onTruck(truck));
-                }
+                tgui.calculateOnInput();
+                txtAxles.setEnabled(false);
+                txtAxles.setEditable(false);
+                lblAxles.setEnabled(false);
+                cbAdBlue.setEnabled(false);
             }
         });
 
         rbDiesel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (rbDiesel.isSelected()) {
-                    if (rbCar.isSelected()) {
-                        txtCO2fullCalculation.setText("" + TripCalculator.getInstance().calculateCO2onCar());
-                    } else {
-                        int nrAxles = 2;
-                        int cargo = 0;
-                        try {
-                            nrAxles = Integer.parseInt(txtAxles.getText());
-                            cargo = Integer.parseInt(txtCargo.getText());
-                        } catch (Exception ex) {
-                            nrAxles = 2;
-                            cargo = 0;
-                        }
-                        Truck truck = new Truck(5.0, FuelType.Diesel, cargo, nrAxles, cbAdBlue.isSelected());
-                        txtCO2fullCalculation.setText("" + TripCalculator.getInstance().calculateCO2onTruck(truck));
-                    }
-                }
+                tgui.calculateOnInput();
             }
         });
 
         rbPatrol.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (rbPatrol.isSelected()) {
-                    if (rbCar.isSelected()) {
-                        txtCO2fullCalculation.setText("" + TripCalculator.getInstance().calculateCO2onCar());
-                    } else {
-                        int nrAxles = 2;
-                        int cargo = 0;
-                        try {
-                            nrAxles = Integer.parseInt(txtAxles.getText());
-                            cargo = Integer.parseInt(txtCargo.getText());
-                        } catch (Exception ex) {
-                            nrAxles = 2;
-                            cargo = 0;
-                        }
-                        Truck truck = new Truck(5.0, FuelType.Diesel, cargo, nrAxles, cbAdBlue.isSelected());
-                        txtCO2fullCalculation.setText("" + TripCalculator.getInstance().calculateCO2onTruck(truck));
-                    }
-                }
+                tgui.calculateOnInput();
             }
         });
         txtAxles.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                if (rbPatrol.isSelected()) {
-                    int nrAxles = 2;
-                    int cargo = 0;
-                    try {
-                        nrAxles = Integer.parseInt(txtAxles.getText());
-                        cargo = Integer.parseInt(txtCargo.getText());
-                    } catch (Exception ex) {
-                        nrAxles = 2;
-                        cargo = 0;
-                    }
-                    Truck truck = new Truck(5.0, FuelType.Diesel, cargo, nrAxles, cbAdBlue.isSelected());
-                    txtCO2fullCalculation.setText("" + TripCalculator.getInstance().calculateCO2onTruck(truck));
-
-                }
-                else
-                {
-                    int nrAxles = 2;
-                    int cargo = 0;
-                    try {
-                        nrAxles = Integer.parseInt(txtAxles.getText());
-                        cargo = Integer.parseInt(txtCargo.getText());
-                    } catch (Exception ex) {
-                        nrAxles = 2;
-                        cargo = 0;
-                    }
-                    Truck truck = new Truck(5.0, FuelType.Patrol, cargo, nrAxles, cbAdBlue.isSelected());
-                    txtCO2fullCalculation.setText("" + TripCalculator.getInstance().calculateCO2onTruck(truck));
-                }
+                tgui.calculateOnInput();
+            }
+        });
+        txtCargo.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                tgui.calculateOnInput();
+            }
+        });
+        cbAdBlue.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                tgui.calculateOnInput();
             }
         });
 
@@ -253,8 +198,59 @@ public class TripCalculatorGUI extends JFrame {
         con.add(pnBigPanel, BorderLayout.CENTER);
     }
 
+    public void calculateOnInput() {
+        if (rbCar.isSelected()) {
+            int cargo = 0;
+            try {
+                cargo = Integer.parseInt(txtCargo.getText());
+            } catch (Exception ex) {
+                cargo = 0;
+            }
+            Car car;
+            if (rbPatrol.isSelected()) {
+                car = new Car(5.0, FuelType.Patrol, cargo);
+            } else {
+                car = new Car(5.0, FuelType.Diesel, cargo);
+            }
+            txtCO2fullCalculation.setText("" + TripCalculator.getInstance().calculateCo2Consumption(car));
+        } else {
+            if (rbPatrol.isSelected()) {
+                int nrAxles = 2;
+                int cargo = 0;
+                try {
+                    cargo = Integer.parseInt(txtCargo.getText());
+                } catch (Exception ex) {
+                    cargo = 0;
+                }
+                try {
+                    nrAxles = Integer.parseInt(txtAxles.getText());
+                } catch (Exception ex) {
+                    nrAxles = 2;
+                }
+                Truck truck = new Truck(5.0, FuelType.Patrol, cargo, nrAxles, cbAdBlue.isSelected());
+                txtCO2fullCalculation.setText("" + TripCalculator.getInstance().calculateCo2Consumption(truck));
+
+            } else {
+                int nrAxles = 2;
+                int cargo = 0;
+                try {
+                    cargo = Integer.parseInt(txtCargo.getText());
+                } catch (Exception ex) {
+                    cargo = 0;
+                }
+                try {
+                    nrAxles = Integer.parseInt(txtAxles.getText());
+                } catch (Exception ex) {
+                    nrAxles = 2;
+                }
+                Truck truck = new Truck(5.0, FuelType.Diesel, cargo, nrAxles, cbAdBlue.isSelected());
+                txtCO2fullCalculation.setText("" + TripCalculator.getInstance().calculateCo2Consumption(truck));
+            }
+        }
+    }
+
     public static void main(String[] args) {
-        TripCalculatorGUI tgui = new TripCalculatorGUI();
+        tgui = new TripCalculatorGUI();
         tgui.initComponents();
         tgui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         tgui.setSize(500, 500);
@@ -267,7 +263,7 @@ public class TripCalculatorGUI extends JFrame {
             tgui.txtCO2onDistance.setText("" + tc.calculateCO2onDistance());
             tgui.txtCO2withSlope.setText("" + tc.calculateCO2onDistanceAndSlope());
             tgui.txtCO2withRoutetype.setText("" + tc.calculateCO2onRoute());
-            tgui.txtCO2fullCalculation.setText("" + TripCalculator.getInstance().calculateCO2onCar());
+            tgui.txtCO2fullCalculation.setText("" + tc.calculateCo2Consumption(new Car(5.0, FuelType.Diesel, 100)));
         } catch (Exception ex) {
 
         }

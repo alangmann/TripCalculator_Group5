@@ -1,5 +1,4 @@
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
@@ -14,11 +13,12 @@ public class TripCalculator {
     private LinkedList<Route> routeList = new LinkedList<Route>();
 
     private static TripCalculator theInstance;
-    private TripCalculator(){}
-    public static TripCalculator getInstance()
-    {
-        if(theInstance==null)
-        {
+
+    private TripCalculator() {
+    }
+
+    public static TripCalculator getInstance() {
+        if (theInstance == null) {
             theInstance = new TripCalculator();
         }
         return theInstance;
@@ -36,11 +36,16 @@ public class TripCalculator {
                 RouteType rt;
                 String routeType = parts[2];
 
-                switch(routeType)
-                {
-                    case "Highway": rt = RouteType.Highway;break;
-                    case "GravelRoad": rt = RouteType.GravelRoad;break;
-                    default: rt = RouteType.CountryRoad;break;
+                switch (routeType) {
+                    case "Highway":
+                        rt = RouteType.Highway;
+                        break;
+                    case "GravelRoad":
+                        rt = RouteType.GravelRoad;
+                        break;
+                    default:
+                        rt = RouteType.CountryRoad;
+                        break;
                 }
                 double specialFee = Double.parseDouble(parts[3].replace(',', '.'));
                 routeList.add(new Route(km, slope, rt, specialFee));
@@ -52,17 +57,17 @@ public class TripCalculator {
 
     public String readFuelsCSV(String dayOfWeek) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\trunk\\src\\main\\resources\\sprit_db.csv"));
-        String both="";
-        String line ="";
+        String both = "";
+        String line = "";
         int count = 0;
         while ((line = br.readLine()) != null) {
             String[] parts = line.split(";");
             if (count > 0) {
                 String dayOfWeekMethod = parts[0];
-                if(dayOfWeekMethod.equalsIgnoreCase(dayOfWeek)) {
+                if (dayOfWeekMethod.equalsIgnoreCase(dayOfWeek)) {
                     double diesel = Double.parseDouble(parts[1].replace(',', '.'));
                     double patrol = Double.parseDouble(parts[2].replace(',', '.'));
-                    both=diesel+";"+patrol;
+                    both = diesel + ";" + patrol;
                 }
             }
             System.out.println(line);
@@ -86,12 +91,10 @@ public class TripCalculator {
     public double calculateCO2onDistanceAndSlope() {
         double co2 = 0;
         for (Route route : routeList) {
-            if(route.getSlope()>=0) {
+            if (route.getSlope() >= 0) {
                 co2 += route.getKm() * 0.1325 * (1 + (route.getSlope() / 10000));
-            }
-            else
-            {
-                co2+=0;
+            } else {
+                co2 += 0;
             }
         }
         return co2;
@@ -101,34 +104,29 @@ public class TripCalculator {
     public double calculateCO2onRoute() {
         double co2 = 0;
         for (Route route : routeList) {
-            if(route.getSlope()>=0) {
+            if (route.getSlope() >= 0) {
                 co2 += route.getKm() * 0.1325 * (1 + (route.getSlope() / 10000)) * route.getRouteType().getFactor();
-            }
-            else
-            {
-                co2+=0;
+            } else {
+                co2 += 0;
             }
         }
         return co2;
     }
+
     /**
      * 0,0265kg/km at 1l/100km (Diesel)
      * 0,0236kg/km at 1l/100km (Patrol)
-     *
-     **/
-    public double calculateCO2onCar()
-    {   double co2 = 0;
-        Car car = new Car(5.0,FuelType.Diesel,100);
-        Truck truck = new Truck(5.0,FuelType.Diesel,100,4,true);
-        for(Route route : routeList)
-        {
-            if(route.getSlope()>=0) {
+     */
+    public double calculateCO2onCar() {
+        double co2 = 0;
+        Car car = new Car(5.0, FuelType.Diesel, 100);
+        Truck truck = new Truck(5.0, FuelType.Diesel, 100, 4, true);
+        for (Route route : routeList) {
+            if (route.getSlope() >= 0) {
 
-                co2 += route.getKm() * ((car.getAverageConsumption() * 0.0265) + (0.005 * car.getCargo()*0.0265)) * (1 + (route.getSlope() / 10000)) * route.getRouteType().getFactor();
-            }
-            else
-            {
-                co2+=0;
+                co2 += route.getKm() * ((car.getAverageConsumption() * 0.0265) + (0.005 * car.getCargo() * 0.0265)) * (1 + (route.getSlope() / 10000)) * route.getRouteType().getFactor();
+            } else {
+                co2 += 0;
             }
         }
 
@@ -137,65 +135,62 @@ public class TripCalculator {
 
     }
 
-    public double calculateCO2onTruck(Truck truck)
-    {
+    public double calculateCO2onTruck(Truck truck) {
         double co2 = 0;
 
-        for(Route route : routeList)
-        {
-            if(route.getSlope()>=0) {
-                co2 += (route.getKm() * ((truck.getAverageConsumption() * 0.0265) + (0.0005 * truck.getCargo()*0.0265)) * (1 + (route.getSlope() / 10000)) * route.getRouteType().getFactor())*93/100;
-            }
-            else
-            {
-                co2+=0;
+        for (Route route : routeList) {
+            if (route.getSlope() >= 0) {
+                co2 += (route.getKm() * ((truck.getAverageConsumption() * 0.0265) + (0.0005 * truck.getCargo() * 0.0265)) * (1 + (route.getSlope() / 10000)) * route.getRouteType().getFactor()) * 93 / 100;
+            } else {
+                co2 += 0;
             }
 
         }
         return co2;
     }
 
-    public double calculateCostOfRouteSegment() throws IOException {
-        double co2=0;
-        String dayOfWeek="Monday";
-        Vehicle vehicle = new Truck(35.0,FuelType.Diesel,20000,4,false);
-        for(Route route : routeList)
-        {
-
-            if(vehicle instanceof Truck)
-            {
-                if(vehicle.getTypeOfFuel() == FuelType.Diesel)
-                {
-                    double diesel = Double.parseDouble(this.readFuelsCSV(dayOfWeek).split(";")[0]);
-                    co2+= route.getKm() * (vehicle.getAverageConsumption()+ vehicle.getCargo()/100 * 0.05) * diesel + route.getSpecialFee() * 5.0625;
-                }
-                else
-                {
-                    double patrol = Double.parseDouble(this.readFuelsCSV(dayOfWeek).split(";")[0]);
-                    co2+= route.getKm() * (vehicle.getAverageConsumption()+ vehicle.getCargo()/100 * 0.05) * patrol + route.getSpecialFee() * 5.0625;
-
-                }
-
+    public double calculateCo2Consumption(Vehicle vehicle) {
+        double co2 = 0;
+        System.out.println(vehicle.getCargo());
+        for (Route route : routeList) {
+            if (vehicle instanceof Truck) {
+                co2 += (route.getKm() * ((vehicle.getAverageConsumption() * (vehicle.getTypeOfFuel() == FuelType.Diesel ? FuelType.Diesel.getLiterPer100km() :  FuelType.Patrol.getLiterPer100km())) + (0.0005 * vehicle.getCargo() * 0.0265)) * (route.getSlope() >= 0 ? (1 + (route.getSlope() / 10000)) : 1) * route.getRouteType().getFactor()) * (((Truck) vehicle).isAdBlue() ? 0.93 : 1);
+            } else {
+                co2 += route.getKm() * ((vehicle.getAverageConsumption() * (vehicle.getTypeOfFuel() == FuelType.Diesel ? FuelType.Diesel.getLiterPer100km() :  FuelType.Patrol.getLiterPer100km())) + (0.005 * vehicle.getCargo() * 0.0265)) * (route.getSlope() >= 0 ? (1 + (route.getSlope() / 10000)) : 1) * route.getRouteType().getFactor();
             }
+        }
+        return co2;
+    }
 
-            else if(vehicle instanceof Car)
-            {
-                if(vehicle.getTypeOfFuel() == FuelType.Diesel)
-                {
-                    double diesel = Double.parseDouble(this.readFuelsCSV(dayOfWeek).split(";")[0]);
-                    co2+= route.getKm() * (vehicle.getAverageConsumption()+ vehicle.getCargo()/100 * 0.5) * diesel + route.getSpecialFee() * 5.0625;
+    /*
+    public double calculateCostOfRouteSegment(Vehicle vehicle) throws IOException {
+        double co2 = 0;
+        String dayOfWeek = "Monday";
+        //Vehicle vehicle = new Truck(35.0,FuelType.Diesel,20000,4,false);
+        for (Route route : routeList) {
+            if (vehicle instanceof Truck) {
+                if (vehicle.getTypeOfFuel() == FuelType.Diesel) {
+                    double diesel = FuelType.Diesel.getLiterPer100km();
+                    co2 += route.getKm() * (vehicle.getAverageConsumption() + vehicle.getCargo() / 100 * 0.05) * diesel + route.getSpecialFee() * 5.0625 * (((Truck) vehicle).isAdBlue() ? 0.93 : 1);
+                } else {
+                    double patrol = FuelType.Patrol.getLiterPer100km();
+                    co2 += route.getKm() * (vehicle.getAverageConsumption() + vehicle.getCargo() / 100 * 0.05) * patrol + route.getSpecialFee() * 5.0625 * (((Truck) vehicle).isAdBlue() ? 0.93 : 1);
                 }
 
-                else
-                {
-                    double patrol = Double.parseDouble(this.readFuelsCSV(dayOfWeek).split(";")[0]);
-                    co2+= route.getKm() * (vehicle.getAverageConsumption()+ vehicle.getCargo()/100 * 0.5) * patrol + route.getSpecialFee() * 5.0625;
+            } else if (vehicle instanceof Car) {
+                if (vehicle.getTypeOfFuel() == FuelType.Diesel) {
+                    double diesel = FuelType.Diesel.getLiterPer100km();
+                    co2 += route.getKm() * (vehicle.getAverageConsumption() + vehicle.getCargo() / 100 * 0.5) * diesel + route.getSpecialFee() * 5.0625;
+                } else {
+                    double patrol = FuelType.Patrol.getLiterPer100km();
+                    co2 += route.getKm() * (vehicle.getAverageConsumption() + vehicle.getCargo() / 100 * 0.5) * patrol + route.getSpecialFee() * 5.0625;
 
                 }
             }
         }
 
+
         return co2;
     }
-
+    */
 }
