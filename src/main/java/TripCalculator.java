@@ -137,10 +137,9 @@ public class TripCalculator {
 
     }
 
-    public double calculateCO2onTruck()
+    public double calculateCO2onTruck(Truck truck)
     {
         double co2 = 0;
-        Truck truck = new Truck(5.0,FuelType.Diesel,100,4,true);
 
         for(Route route : routeList)
         {
