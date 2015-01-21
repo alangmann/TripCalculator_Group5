@@ -35,6 +35,16 @@ public class TripCalculatorTest {
         assertThat(tc.calculateCO2onRoute(), equalTo(26.7005361));
     }
 
+    @Test
+    public void calc()
+    {
+        try {
+            assertThat(tc.calculateTotalCostOfRoute(new Car(5.0, FuelType.Diesel, 100), "Monday", false, false), equalTo(1485.79475));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     /*
     @Test
     public void calculateCO2onCar() {
