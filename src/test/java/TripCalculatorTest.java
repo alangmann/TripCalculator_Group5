@@ -21,29 +21,40 @@ public class TripCalculatorTest {
 
     @Test
     public void calculateCO2onDistance() {
-        assertThat(tc.calculateCO2onDistance(), equalTo(27.096249999999998));
+        assertThat(tc.calculateCO2onDistance(), equalTo(54.1925));
     }
-
 
     @Test
     public void calculateCO2onDistanceAndSlope() {
-        assertThat(tc.calculateCO2onDistanceAndSlope(), equalTo(24.1274656));
+        assertThat(tc.calculateCO2onDistanceAndSlope(), equalTo(96.50986240000002));
     }
 
     @Test
     public void calculateCO2onRoute() {
-        assertThat(tc.calculateCO2onRoute(), equalTo(26.7005361));
+        assertThat(tc.calculateCO2onRoute(), equalTo(80.1016083));
     }
 
     @Test
-    public void calc()
-    {
+    public void calculateTotalCostOfRouteWithCar() {
         try {
             assertThat(tc.calculateTotalCostOfRoute(new Car(5.0, FuelType.Diesel, 100), "Monday", false, false), equalTo(1485.79475));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void calculateCo2ConsumptionTruckWithoutAdBlue()
+    {
+        assertThat(tc.calculateCo2Consumption(new Truck(35.0, FuelType.Diesel, 100, 4, false)), equalTo(211.320208061));
+    }
+
+    @Test
+    public void calculateCo2ConsumptionTruckWithAdBlue()
+    {
+        assertThat(tc.calculateCo2Consumption(new Truck(35.0, FuelType.Diesel, 100, 4, true)), equalTo(196.52779349673));
+    }
+
 
     /*
     @Test
