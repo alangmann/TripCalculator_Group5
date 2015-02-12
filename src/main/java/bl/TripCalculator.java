@@ -1,3 +1,5 @@
+package bl;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -7,6 +9,7 @@ import java.util.LinkedList;
  * Created by Juergen on 27.11.2014.
  */
 
+import beans.*;
 
 public class TripCalculator {
 
@@ -120,9 +123,9 @@ public class TripCalculator {
     /*
     public double calculateCO2onCar() {
         double co2 = 0;
-        Car car = new Car(5.0, FuelType.Diesel, 100);
-        Truck truck = new Truck(5.0, FuelType.Diesel, 100, 4, true);
-        for (Route route : routeList) {
+        beans.Car car = new beans.Car(5.0, beans.FuelType.Diesel, 100);
+        beans.Truck truck = new beans.Truck(5.0, beans.FuelType.Diesel, 100, 4, true);
+        for (beans.Route route : routeList) {
             if (route.getSlope() >= 0) {
 
                 co2 += route.getKm() * ((car.getAverageConsumption() * 0.0265) + (0.005 * car.getCargo() * 0.0265)) * (1 + (route.getSlope() / 10000)) * route.getRouteType().getFactor();
@@ -136,10 +139,10 @@ public class TripCalculator {
 
     }
 
-    public double calculateCO2onTruck(Truck truck) {
+    public double calculateCO2onTruck(beans.Truck truck) {
         double co2 = 0;
 
-        for (Route route : routeList) {
+        for (beans.Route route : routeList) {
             if (route.getSlope() >= 0) {
                 co2 += (route.getKm() * ((truck.getAverageConsumption() * 0.0265) + (0.0005 * truck.getCargo() * 0.0265)) * (1 + (route.getSlope() / 10000)) * route.getRouteType().getFactor()) * 93 / 100;
             } else {
@@ -174,12 +177,12 @@ public class TripCalculator {
             {
                 Truck truck = (Truck) vehicle;
 
-                cost+= route.getKm() * (vehicle.getAverageConsumption()+vehicle.getCargo()/100*0.05) * (truck.getTypeOfFuel() ==FuelType.Diesel ? Double.parseDouble(fuel.split(";")[0]) : Double.parseDouble(fuel.split(";")[0])) + (specialFee ? route.getSpecialFee() : 0) * (axles ? Math.pow(1.5,((Truck) vehicle).getAxles()) : 1);
+                cost+= route.getKm() * (vehicle.getAverageConsumption()+vehicle.getCargo()/100*0.05) * (truck.getTypeOfFuel() == FuelType.Diesel ? Double.parseDouble(fuel.split(";")[0]) : Double.parseDouble(fuel.split(";")[0])) + (specialFee ? route.getSpecialFee() : 0) * (axles ? Math.pow(1.5,((Truck) vehicle).getAxles()) : 1);
             }
             else
             {
                 Car car = (Car)vehicle;
-                cost+= route.getKm() * (vehicle.getAverageConsumption()+vehicle.getCargo()/100*0.5) * (car.getTypeOfFuel() ==FuelType.Diesel ? Double.parseDouble(fuel.split(";")[0]) : Double.parseDouble(fuel.split(";")[0])) + (specialFee ? route.getSpecialFee() : 0);
+                cost+= route.getKm() * (vehicle.getAverageConsumption()+vehicle.getCargo()/100*0.5) * (car.getTypeOfFuel() == FuelType.Diesel ? Double.parseDouble(fuel.split(";")[0]) : Double.parseDouble(fuel.split(";")[0])) + (specialFee ? route.getSpecialFee() : 0);
             }
         }
         return cost;

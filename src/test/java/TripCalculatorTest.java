@@ -1,3 +1,7 @@
+import beans.Car;
+import beans.FuelType;
+import beans.Truck;
+import bl.TripCalculator;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -64,7 +68,7 @@ public class TripCalculatorTest {
 
     @Test
     public void calculateCO2onTruck() {
-        assertThat(tc.calculateCO2onTruck(new Truck(5.0, FuelType.Diesel, 100, 4, true)), equalTo(25.07981355873));
+        assertThat(tc.calculateCO2onTruck(new beans.Truck(5.0, beans.FuelType.Diesel, 100, 4, true)), equalTo(25.07981355873));
     }
     */
 }
