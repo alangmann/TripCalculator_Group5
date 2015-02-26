@@ -1,8 +1,11 @@
 package beans;
 
+import org.springframework.stereotype.Repository;
+
 /**
  * Created by Juergen on 04.12.2014.
  */
+@Repository("FuelType")
 public enum FuelType {
     Diesel(0.0265),
     Patrol(0.0236);

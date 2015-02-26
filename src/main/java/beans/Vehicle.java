@@ -1,8 +1,11 @@
 package beans;
 
+import org.springframework.stereotype.Repository;
+
 /**
  * Created by Juergen on 04.12.2014.
  */
+@Repository("Vehicle")
 public class Vehicle {
     private double averageConsumption;
     private FuelType typeOfFuel;

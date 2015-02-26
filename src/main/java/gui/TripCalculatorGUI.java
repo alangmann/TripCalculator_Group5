@@ -1,5 +1,12 @@
 package gui;
 
+import beans.Car;
+import beans.FuelType;
+import beans.Truck;
+import bl.TripCalculator;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -8,11 +15,6 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import bl.TripCalculator;
-import beans.*;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.stereotype.Component;
 
 /**
  * Created by Juergen on 11.12.2014
@@ -310,7 +312,7 @@ public class TripCalculatorGUI extends JFrame {
 
     public static void main(String[] args) {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/spring-di-sample-annotation-context.xml");
-        TripCalculatorGUI tgui = context.getBean("GUI", JFrame.class);
+        TripCalculatorGUI tgui = (TripCalculatorGUI) context.getBean("GUI", JFrame.class);
         tgui.initComponents();
         tgui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         tgui.setSize(500, 500);

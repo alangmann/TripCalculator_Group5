@@ -1,10 +1,11 @@
 package beans;
 
-import beans.RouteType;
+import org.springframework.stereotype.Repository;
 
 /**
  * Created by Juergen on 27.11.2014.
  */
+@Repository("Route")
 public class Route {
     private double km;
     private double slope;

@@ -1,8 +1,11 @@
 package beans;
 
+import org.springframework.stereotype.Repository;
+
 /**
  * Created by Julian on 27.11.2014.
  */
+@Repository("Sprit")
 public class Sprit {
 
     private String weekDay;

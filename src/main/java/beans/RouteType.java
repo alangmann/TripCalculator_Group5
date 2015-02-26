@@ -1,8 +1,11 @@
 package beans;
 
+import org.springframework.stereotype.Repository;
+
 /**
  * Created by Julian on 04.12.2014.
  */
+@Repository("RouteType")
 public enum RouteType {
 
     Highway(1),

@@ -1,10 +1,11 @@
 package beans;
 
-import beans.Vehicle;
+import org.springframework.stereotype.Repository;
 
 /**
  * Created by Juergen on 04.12.2014.
  */
+@Repository("Truck")
 public class Truck extends Vehicle {
 
     private int axles;
