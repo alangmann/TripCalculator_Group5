@@ -310,7 +310,7 @@ public class TripCalculatorGUI extends JFrame {
 
     public static void main(String[] args) {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/spring-di-sample-annotation-context.xml");
-        TripCalculatorGUI tgui = context.getBean("TripCalculatorGUI", JFrame.class);
+        TripCalculatorGUI tgui = context.getBean("GUI", JFrame.class);
         tgui.initComponents();
         tgui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         tgui.setSize(500, 500);
