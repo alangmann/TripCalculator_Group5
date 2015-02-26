@@ -10,7 +10,9 @@ import java.util.LinkedList;
  */
 
 import beans.*;
+import org.springframework.stereotype.Component;
 
+@Component("TripCalculator")
 public class TripCalculator {
 
     private LinkedList<Route> routeList = new LinkedList<Route>();

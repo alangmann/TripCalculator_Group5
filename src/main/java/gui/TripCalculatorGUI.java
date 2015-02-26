@@ -11,10 +11,14 @@ import java.util.Date;
 
 import bl.TripCalculator;
 import beans.*;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by Juergen on 11.12.2014
  */
+
+@Component("GUI")
 public class TripCalculatorGUI extends JFrame {
 
     private static TripCalculatorGUI tgui;
@@ -305,12 +309,15 @@ public class TripCalculatorGUI extends JFrame {
     }
 
     public static void main(String[] args) {
-        tgui = new TripCalculatorGUI();
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/spring-di-sample-annotation-context.xml");
+        TripCalculatorGUI tgui = context.getBean("TripCalculatorGUI", JFrame.class);
         tgui.initComponents();
         tgui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         tgui.setSize(500, 500);
         tgui.setVisible(true);
         tgui.setLocationRelativeTo(null);
+
+
 
         TripCalculator tc = TripCalculator.getInstance();
         try {
