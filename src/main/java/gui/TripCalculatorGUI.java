@@ -20,7 +20,7 @@ import java.util.Date;
  * Created by Juergen on 11.12.2014
  */
 
-@Component("GUI")
+@Component("TripCalculatorGUI")
 public class TripCalculatorGUI extends JFrame {
 
     private static TripCalculatorGUI tgui;
@@ -311,8 +311,8 @@ public class TripCalculatorGUI extends JFrame {
     }
 
     public static void main(String[] args) {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/spring-di-sample-annotation-context.xml");
-        TripCalculatorGUI tgui = (TripCalculatorGUI) context.getBean("GUI", JFrame.class);
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("tripcalculator.xml");
+        tgui = (TripCalculatorGUI) context.getBean("TripCalculatorGUI", JFrame.class);
         tgui.initComponents();
         tgui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         tgui.setSize(500, 500);
